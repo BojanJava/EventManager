@@ -15,7 +15,7 @@ public class PersonService {
 	private PersonRepository personRepository;
 	
 	public List<Person> listAll() {
-		return personRepository.findAll();
+		return personRepository.findAll(); 
 	}
 	
 	public void save(Person person) {
