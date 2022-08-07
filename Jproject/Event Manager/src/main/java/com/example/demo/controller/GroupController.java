@@ -3,8 +3,6 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,53 +15,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Person;
-import com.example.demo.service.PersonService;
+import com.example.demo.model.Group0;
+import com.example.demo.service.GroupService;
 
 @RestController
-@RequestMapping("/person")
-public class PersonController {
+@RequestMapping("/group")
+public class GroupController {
 
 	@Autowired
-	private PersonService personService;
+	private GroupService groupService;
 	
 	@GetMapping("/getAll")
-	public List<Person> list() {
-		return personService.listAll();
+	public List<Group0> list() {
+		return groupService.listAll();
 	}
-	
 	@PostMapping("/add")
-	public String add(@Valid @RequestBody Person person) {
-		personService.save(person);
-		return "New Person Added";
+	public String add(@RequestBody Group0 group) {
+		groupService.save(group);
+		return "New Group Added";
 	}
-	
 	@GetMapping("/{id}")
-	public ResponseEntity<Person> get(@PathVariable Integer id) {
+	public ResponseEntity<Group0>get(@PathVariable Integer id) {
 		try {
-			Person person = personService.get(id);
-			return new ResponseEntity<Person>(person, HttpStatus.OK);
+			Group0 group = groupService.get(id);
+			return new ResponseEntity<Group0>(group, HttpStatus.OK);
 		}
 		catch (NoSuchElementException e) {
-			return new ResponseEntity<Person>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Group0>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
 	@PutMapping("/{id}")
-	public ResponseEntity<Person> update(@Valid @RequestBody Person person, @PathVariable Integer id) {
+	public ResponseEntity<Group0> update(@RequestBody Group0 group, @PathVariable Integer id) {
 		try {
-			Person existingPerson = personService.get(id);
-			personService.save(person);
+			Group0 existingGroup = groupService.get(id);
+			groupService.save(group);
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		catch (NoSuchElementException e) {
-			return new ResponseEntity<Person>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Group0>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Integer id) {
-		personService.delete(id);
-		return "Deleted Person with id " + id;
+		groupService.delete(id);
+		return "Deleted Group with id " + id;
 	}
 }
