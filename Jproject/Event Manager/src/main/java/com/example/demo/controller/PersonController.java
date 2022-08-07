@@ -3,8 +3,6 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,7 @@ public class PersonController {
 	}
 	
 	@PostMapping("/add")
-	public String add(@Valid @RequestBody Person person) {
+	public String add(@RequestBody Person person) {
 		personService.save(person);
 		return "New Person Added";
 	}
@@ -50,7 +48,7 @@ public class PersonController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Person> update(@Valid @RequestBody Person person, @PathVariable Integer id) {
+	public ResponseEntity<Person> update(@RequestBody Person person, @PathVariable Integer id) {
 		try {
 			Person existingPerson = personService.get(id);
 			personService.save(person);
