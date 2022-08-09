@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,5 +67,10 @@ public class PersonController {
 	public String delete(@PathVariable Integer id) {
 		personService.delete(id);
 		return "Deleted Person with id " + id;
+	}
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	public ResponseEntity<String> handleConstraint(SQLIntegrityConstraintViolationException ex) {
+		
+		return new ResponseEntity<String>("The person is busy. Remove the person from the group, then try again.", HttpStatus.BAD_REQUEST);	
 	}
 }

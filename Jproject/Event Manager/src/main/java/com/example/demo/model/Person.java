@@ -1,9 +1,11 @@
 package com.example.demo.model;
 
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -35,7 +37,6 @@ public class Person {
 	@NotEmpty
 	@Email
 	private String email;
-
 	
 	public Person(Integer id, String firstName, String lastName, String email) {
 		this.id = id;

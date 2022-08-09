@@ -1,6 +1,7 @@
 package com.example.demo.exceptionhandler;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -15,11 +16,11 @@ public class ExHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleArgument(MethodArgumentNotValidException ex) {
+		
 		Map<String, String> map = new HashMap<>();
 		ex.getBindingResult().getFieldErrors().forEach(error -> {
 			map.put(error.getField(), error.getDefaultMessage());
 		});
 		return map;
 	}
-	
 }
