@@ -87,7 +87,7 @@ public class GroupController {
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public ResponseEntity<String> handleConstraint(SQLIntegrityConstraintViolationException ex) {
 		
-		return new ResponseEntity<String>("Name already exists", HttpStatus.BAD_REQUEST);	
+		return new ResponseEntity<String>("Group name already exists", HttpStatus.BAD_REQUEST);	
 	}
 }
 
