@@ -68,9 +68,5 @@ public class PersonController {
 		personService.delete(id);
 		return "Deleted Person with id " + id;
 	}
-	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-	public ResponseEntity<String> handleConstraint(SQLIntegrityConstraintViolationException ex) {
-		
-		return new ResponseEntity<String>("The person is busy. Remove the person from the group, then try again.", HttpStatus.BAD_REQUEST);	
-	}
+	
 }

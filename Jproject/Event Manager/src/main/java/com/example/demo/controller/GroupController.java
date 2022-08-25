@@ -4,6 +4,8 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class GroupController {
 		return groupService.listAll();
 	}
 	@PostMapping("/add")
-	public String add(@RequestBody Group0 group) {
+	public String add(@Valid @RequestBody Group0 group) {
 		groupService.save(group);
 		return "New Group Added";
 	}
@@ -54,7 +56,7 @@ public class GroupController {
 		}
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<Group0> update(@RequestBody Group0 group, @PathVariable Integer id) {
+	public ResponseEntity<Group0> update(@Valid @RequestBody Group0 group, @PathVariable Integer id) {
 		try {
 			Group0 existingGroup = groupService.get(id);
 			groupService.save(group);
@@ -83,6 +85,7 @@ public class GroupController {
 		group.removePersonFromGroup(person);
 		return groupRepository.save(group);
 	}
+	
 	
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public ResponseEntity<String> handleConstraint(SQLIntegrityConstraintViolationException ex) {

@@ -8,15 +8,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demo.enumeration.EventEnum;
+import com.example.demo.model.Category1;
 import com.example.demo.model.Event0;
 import com.example.demo.model.Group0;
 import com.example.demo.model.Person;
 import com.example.demo.repository.EventRepository;
 import com.example.demo.repository.GroupRepository;
+import com.example.demo.repository.PersonRepository;
 
 @SpringBootApplication
 public class EventManagerApplication implements CommandLineRunner {
 
+	@Autowired
+	private PersonRepository personRepository;
 	@Autowired
 	private GroupRepository groupRepository;
 	@Autowired
@@ -40,26 +44,27 @@ public class EventManagerApplication implements CommandLineRunner {
 		Group0 group1 = new Group0(1, "group1");
 		Group0 group2 = new Group0(2, "group2");
 		
-		LocalDateTime date1 = LocalDateTime.of(2022, 8, 25, 18, 00);
+		LocalDateTime date1 = LocalDateTime.of(2022, 8, 26, 18, 00);
 		
-		Event0 event1 = new Event0(1, "Concert", "Iron Maiden", 
-								   date1, 
-								   "Savski nasip 1111, 11070 Beograd",
-								   20, EventEnum.SCHEDULED);
-		event1.getPeople().add(person1);
+		Category1 category = new Category1();
+		category.setName("Entertainment");
+		
+		Event0 event1 = new Event0(1, "Concert", "Rock concert",
+								   category, date1, 
+								   "Oak street 1111, New York",
+								   5, EventEnum.SCHEDULED);
 		
 		eventRepository.save(event1);
-		
-		group1.getPeople().add(person1);
-		group1.getPeople().add(person2);
-		group1.getPeople().add(person3);
-		group2.getPeople().add(person4);
-		group2.getPeople().add(person5);
-		group2.getPeople().add(person6);
 		
 		groupRepository.save(group1);
 		groupRepository.save(group2);
 		
+		personRepository.save(person1);
+		personRepository.save(person2);
+		personRepository.save(person3);
+		personRepository.save(person4);
+		personRepository.save(person5);
+		personRepository.save(person6);
 	}	
 	
 }
