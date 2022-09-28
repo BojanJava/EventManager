@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -40,11 +41,13 @@ public class GroupController {
 	public List<Group0> list() {
 		return groupService.listAll();
 	}
+	
 	@PostMapping("/add")
 	public String add(@Valid @RequestBody Group0 group) {
 		groupService.save(group);
 		return "New Group Added";
 	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<Group0>get(@PathVariable Integer id) {
 		try {
@@ -55,6 +58,7 @@ public class GroupController {
 			return new ResponseEntity<Group0>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<Group0> update(@Valid @RequestBody Group0 group, @PathVariable Integer id) {
 		try {
@@ -66,11 +70,13 @@ public class GroupController {
 			return new ResponseEntity<Group0>(HttpStatus.NOT_FOUND);
 		}
 	}
+	
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable Integer id) {
 		groupService.delete(id);
 		return "Deleted Group with id " + id;
 	}
+	
 	@PutMapping("/{groupId}/addPerson/{personId}")
 	public Group0 addPersonToGroup(@PathVariable Integer groupId, @PathVariable Integer personId) {
 		Group0 group = groupRepository.findById(groupId).get();
@@ -78,6 +84,7 @@ public class GroupController {
 		group.addPersonToGroup(person);
 		return groupRepository.save(group);
 	}
+	
 	@PutMapping("/{groupId}/removePerson/{personId}")
 	public Group0 removePersonFromGroup(@PathVariable Integer groupId, @PathVariable Integer personId) {
 		Group0 group = groupRepository.findById(groupId).get();

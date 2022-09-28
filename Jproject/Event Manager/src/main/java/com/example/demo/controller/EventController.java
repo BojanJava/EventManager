@@ -2,16 +2,12 @@ package com.example.demo.controller;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,18 +21,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Category1;
 import com.example.demo.model.Event0;
-import com.example.demo.model.Group0;
 import com.example.demo.model.Person;
 import com.example.demo.repository.EventRepository;
-import com.example.demo.repository.GroupRepository;
 import com.example.demo.repository.PersonRepository;
 import com.example.demo.service.EventService;
 
 @RestController
 @RequestMapping("/event")
-public class EventController  {
+public class EventController {
 
 	@Autowired
 	private EventService eventService;
@@ -102,25 +95,15 @@ public class EventController  {
 		return eventRepository.save(event);
 	}
 	
-	
 	@GetMapping("/categoryName")
 	public List<Event0> getEventByCategory(@RequestParam("name") String name) {
 		return eventService.getEventByCategory(name);
 	}
 	
-	@GetMapping("/eventDate")
-	public List<Event0> getEventByDate(@RequestParam("date") 
-									   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
-		return eventService.getEventByDate(date);
+	@GetMapping("/eventPerson")
+	public List<Event0> getEventByPerson(@RequestParam("person") Integer personId) {
+		return eventService.getEventByPerson(personId);
 	}
-
-//	@GetMapping("/eventPerson")
-//	public List<Event0> getEventByPerson(@RequestParam("person") Integer personId) {
-//		return eventService.getEventByPerson(personId);
-//	}
-	
-	
-	
 	
 	
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)

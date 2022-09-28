@@ -1,7 +1,6 @@
 package com.example.demo.exceptionhandler;
 
 import java.util.HashMap;
-
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
